@@ -1,0 +1,68 @@
+<form class="text-center border border-light p-5">
+
+    <p class="h4 mb-4">Registro de vendas</p>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="clients">Clientes</label>
+        </div>
+        <select class="custom-select" [(ngModel)]="sale.client" id="clientsSelect" name="clientsSelect">
+            <option *ngFor="let c of clients" [ngValue]="c" [selected]="c">
+                {{c.name}}
+            </option>
+        </select>
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="products">Jogos</label>
+        </div>
+        <select class="custom-select" [(ngModel)]="sale.products" id="productsSelect" name="productsSelect" multiple>
+            <option *ngFor="let f of products" [ngValue]="f">
+                {{f.name}}
+            </option>
+        </select>
+    </div>
+
+    <button type="submit" style="width: 100px;" class="btn btn-success" (click)="save()">Salvar</button>
+    <button type="submit" style="width: 100px;" class="btn btn-danger" (click)="cancel()">Cancelar</button>
+
+</form>
+
+<div *ngIf="msgError" class="alert alert-danger">
+    {{msgError}}
+</div>
+
+<div *ngIf="msgSuccess" class="alert alert-success">
+    {{msgSuccess}}
+</div>
+
+<table class="table">
+    <thead class="bg-primary text-white">        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Jogos</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Excluir</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let sale of sales">
+            <td>{{ sale.id }}</td>
+            <td>{{ sale.client.name }}</td>
+            <td> {{ sale.products[0].name }},...</td>
+            <td>
+                <a href="javascript:void(0)" (click)="update(sale)">
+                    <img src="../../assets/img/editar.png" alt="Update" title="Editar" width="20px" height="20px" />
+                </a>
+            </td>
+            <td>
+                <a href="javascript:void(0)" (click)="delete(sale)">
+                    <img src="../../assets/img/excluir.png" alt="Delete" title="Excluir" width="20px" height="20px" />
+                </a>
+            </td>
+        </tr>
+    </tbody>
+
+</table>
